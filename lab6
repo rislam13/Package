@@ -1,0 +1,955 @@
+Script started on Wed 10 May 2017 09:22:12 AM EDT
+]0;rislam@storm:~/CISC2000/Lab6[rislam@storm Lab6]$ pe[Kwd
+/home/students/rislam/CISC2000/Lab6
+]0;rislam@storm:~/CISC2000/Lab6[rislam@storm Lab6]$ cat [K[K[K[Kpwdlogoutscript./a.outg++ Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp TTwoDayPackage.cpp Driver.cpp [Avi Customer.cpp[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cg++ Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp TTwoDayPackage.cpp Driver.cpp [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp Tw[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp Two[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp TwoD[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp Two[1@D[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ca Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp Tw[1@o[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ct Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp T[1@w[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+/*Name:Reham Islam
+ * Professor Papadakis
+ * 4/30/2017
+ * This is a Source file for Lab 4
+ */
+#include "Package.h"
+Package::Package()
+{	weight = 0;
+	costPerOunce = 10;
+}
+
+Package::Package(Customer sender,Customer recipient, double weight):Package()
+{	Package::sender = sender;
+	Package::recipient =recipient;
+	Package::weight=weight;
+}
+
+bool Package::setWeight(double mass)
+{	bool valid = false;
+	if(mass > 0)
+	{	weight = mass;
+		valid = true;
+	}
+	return( valid );
+}
+
+double Package::getWeight()const
+{	return ( weight );
+}
+
+bool Package::setcostPerOunce(double set)
+{	if(set > 0)
+	{	costPerOunce= set;
+		return ( true );
+	}
+	return ( false );
+}
+
+
+double Package::calculateCost()const
+{	return( costPerOunce *  weight );	
+}
+
+
+void Package::output()const
+{	cout << "From: \n"; 
+	cout <<  sender << endl;
+	cout << "To: \n" ;
+	cout << recipient << endl;
+	cout << "Total Cost" << calculateCost() << endl;	
+}
+
+void Package::input()
+{	double mass = 0;
+	cout << "Enter information about Sender: \n\n";
+	cin >> sender;
+
+	cout << "\n\nEnter information about Receipient: \n\n";
+        cin >> recipient;
+	
+	do{	cout << "\n Weight of Package: "; 
+		cin >> mass;
+	}while(!(setWeight(mass)));
+	
+	
+}
+/*
+main()
+{	//Package A;
+	Package A;
+	A.input();
+	A.output();
+}*/
+//Name: Reham Islam
+//Professor Papadakis
+//This is a source file for Date.h
+
+
+#include <iostream>
+using namespace std;
+
+#include "Name.h"
+istream& operator>>(istream &in, Name& name)
+{  	 name.input(in);
+	return(in);
+}
+
+ostream& operator<<(ostream &out, const Name& name)
+{   name.display(out);
+	return(out);   
+}
+
+
+Name::Name()
+{   setLname("N/A");
+    setFname("N/A");
+    setMi('X');
+}
+
+Name::Name(string f, char m, string l)
+{   setLname(l);
+    setFname(f);
+    setMi(m);
+}
+
+void Name::setLname(const string l)
+{   lName = l;
+}
+
+void Name::setFname(const string f)
+{   fName = f;
+}
+
+void Name::setMi(const char m)
+{   mi = m;
+}
+
+string Name::getLname() const
+{   return lName;
+}
+
+string Name::getFname() const
+{   return fName;
+}
+
+char Name::getMi() const
+{   return mi;
+}
+
+void Name::display(ostream& out) const
+{   out << getFname() << " " << getMi() << " " << getLname();
+    out << endl;
+}
+
+const Name& Name::operator=(const Name &k)
+{	fName = k.getFname();
+	lName = k.getLname();
+	mi = k.getMi();
+	return(*this);
+}
+
+void Name::input(istream& inp)
+{
+    string f, l;
+    char m;
+
+    cout << "Please Enter First Name: " ;
+    inp >> f;
+    setFname(f);
+    
+    cout << "Please Enter last Name: " ;
+    inp >> l;
+    setLname(l);
+
+    cout << "Please Enter Middle initial: ";
+    inp >> m;
+    setMi(m);
+}
+/*
+int main()
+{   
+    Name k;
+    Name R("R", 'K', "L");
+    Name S(R);
+    cout << "Name using Default Constuctor: " ;
+    cout << k;
+    cout << "\nUpdate Default Contructor" << endl;
+    cin >> k;
+    cout << "\nUpdated Default Constructor: ";
+    cout << k;
+    cout << "\nName using Custom Constructor: " ;
+    cout << R;
+    cout << "\nCopy Constructor: ";
+    cout << S;
+
+
+}*/
+/*Name:Reham Islam
+ * Professor Papadakis
+ * 4/30/2017
+ * This is a source file for Customer Class
+ */
+
+#include "Customer.h"
+
+istream& operator>>(istream& in, Customer& name)
+{	name.input(in);
+	return(in);
+}
+
+ostream& operator<<(ostream& on, const Customer& name)
+{	name.output(on);
+	return(on);
+}
+
+
+//Default Constructor
+Customer::Customer()
+{	address = "None";
+	zipCode = 00000;
+	city = "X";
+	state = "KK";
+}
+//Custom Constructor
+Customer::Customer(Name me):Customer()
+{	name = me;
+}
+
+Customer::Customer(Name nam, string place, string city, string stae, int code): Customer()
+{	name = nam;//calls the overloading assignment operator from name class
+	setAddress(place);
+	setCity(city);
+	setState(stae);
+	setZip(code);
+}
+
+//This menthod will make sure the whether string contains a number
+bool Customer::checkNumber(const string place)const
+{    	bool valid = false;
+	//This for loop checks if there is at least one digit in the string
+	for(int i = 0; i < place.length(); i++)
+	{	char check = place[i];
+		//isDigit will check whether the char is number
+		if(isdigit(check))
+		{	valid = true;
+			break;
+		}	
+	}
+	return ( valid );
+}
+
+
+//This method will make sure the address includes a number
+//Based upon user input it will return true or false
+bool Customer::setAddress(const string place)
+{	if(checkNumber(place))//will check address has a number or not
+	{	address = place;
+	}
+	return( checkNumber(place) );
+}
+
+
+//This will make sure the zip code is five digits	
+bool Customer::setZip(const int zip)
+{  	bool valid = false;
+  
+	string str = to_string(zip); // converst the int to string
+	int length = str.length();//finds the lenght using string
+	
+	if(length==5)
+	{	valid = true;
+		zipCode = zip;	
+	}
+	return valid;
+}
+
+bool Customer::setCity(const string borough)
+{	//This will check whether the city has number
+	// If it has numbers, it will return false
+	// City must not have any number
+	if(!(checkNumber(borough)))
+	{	city = borough;
+	}
+	return(!(checkNumber(borough)));
+}
+
+
+//This method will check whether the state 2 letter and
+//It doesn't include any number 
+bool Customer::setState(const string stat)
+{	bool valid = false;
+	if(!(setAddress(stat)))
+	{	if(stat.length() == 2)
+		{	valid = true;
+			state = stat;
+		}
+	}
+	return(valid);
+
+}
+
+int Customer::getZip() const
+{	return zipCode;
+}
+
+string Customer::getAddress() const
+{	return address;
+}
+
+string Customer::getCity()const
+{	return city;
+}
+
+string Customer::getState()const
+{	return state;
+}
+
+const Customer& Customer::operator=(const Customer& copy)
+{	this-> address = copy.address;
+	state = copy.state;
+	city = copy.city;
+	zipCode = copy.zipCode;
+	name = copy.name;
+	return (*this);
+}
+
+void Customer::input(istream& in)
+{	
+	string adress = " ", city;
+	int code;
+	string state;
+	//Calls the input fuction from the Name class
+	in >> name;
+	
+	do{	cout << "Enter Address: ";
+		getline(in,  adress); 
+	}while(!(setAddress(adress)));
+	
+	do{     cout << "Enter city: ";
+                in >> city;
+        }while(!(setCity(city)));
+
+	do{	cout << "Enter State: ";
+		in >> state;
+	}while(!(setState(state)));
+
+	do{     cout << "Enter Zip Code: ";
+                in >> code;
+        }while(!(setZip(code)));
+		
+}
+
+void Customer::output(ostream& out)const
+{	out << name;
+	out  << address <<  endl;
+	out << city << ", " << state << " -" << zipCode << endl;
+}
+/*
+main()
+{	Customer k;
+	cin >> k;
+	cout << k;
+
+}	*/
+/*
+ * Name: Reham Islam
+ * 5/6/2017
+ * Professor Papadakis
+ * CISC2000
+ * This is a Source file for the overnight shipping class
+ */
+
+#include "OverNightPackage.h"
+
+int OverNightPackage::numOfOverNightPackage;
+double OverNightPackage::totalOverNight; 
+
+//Default Constructor
+OverNightPackage::OverNightPackage()
+{	additionalFee = 10;
+	numOfOverNightPackage++;
+	//setWeight(getWeight()*additionalFee);
+}
+
+OverNightPackage::OverNightPackage(double m):OverNightPackage()
+{	setAdditionalFee(m);
+}
+
+//Custom COnstructor: note ad to copy and pasete the default constructor
+//Because It gives me error about using delegrated constrctor
+OverNightPackage::OverNightPackage(Customer sender, Customer reciept, double weight):Package( sender, reciept, weight)
+{	 additionalFee = 10;
+         setWeight(getWeight()*additionalFee);
+}
+
+bool OverNightPackage::setAdditionalFee(double m)
+{	if(m > 0)
+	{	OverNightPackage::additionalFee = m;
+		return ( true );
+	}
+	return ( false );
+}
+
+//
+//This method will return the additional fee
+//
+double OverNightPackage::getAdditionalFee()const
+{	return( additionalFee );
+}
+
+int OverNightPackage::getnumOfOverNightPackage()
+{	return( numOfOverNightPackage );
+}
+
+double OverNightPackage::gettotalOverNight() 
+{	return( totalOverNight );
+}
+
+//This method overwrites the base classes’ member 
+//function and calculates the cost of sending the package using this service by adding
+//the flat fee to the weight based cost.
+double OverNightPackage::calculateCost()
+{	setWeight(getWeight()*additionalFee);
+	//totalOverNight =totalOverNight - (Package::calculateCost() );//if the fuction is called mistakely twice
+	totalOverNight = totalOverNight+ Package::calculateCost();//Will add the num of dollars per night	
+	return ( Package::calculateCost() );
+}
+
+//
+//This method will ask the user to enter the information
+//
+void OverNightPackage::input()
+{	Package::input();//calls the input function from the package class
+}
+
+//A function print() that prints the sender and recipient information, any attributes
+//associated with this package as well as the cost associated with sending this package.
+void OverNightPackage::print()
+{	 Package::output();
+         cout << "Price: " << calculateCost() << endl;
+}
+/*
+main()
+{	OverNightPackage Two;
+	Two.input();
+	Two.print();
+	Name J("RRR",'J',"KKK");	
+	Customer k(J, "111 place", "city", "KK", 12345);
+	Customer j(J, "111 2", "cit", "Kb", 12345);
+
+	OverNightPackage L(k, j, 10);	
+	L.print();
+	
+	
+}*/
+/*
+ * Name: Reham Islam
+ * 5/6/2017
+ * Professor Papadakis
+ * CISC2000
+ * This is a Source file for the Two day shipping class
+ */
+
+#include "TwoDayPackage.h"
+
+int TwoDayPackage::numOfTwoDayPackage;
+double TwoDayPackage::totalCostTwoDayPackage;
+//Default Constructor
+TwoDayPackage::TwoDayPackage()
+{	flatFee = 10;
+	numOfTwoDayPackage++;
+	
+}
+
+TwoDayPackage::TwoDayPackage(double m): TwoDayPackage()
+{	setFlatfee(m);
+}
+
+TwoDayPackage::TwoDayPackage(Customer sender, Customer reciept, double weight)
+		:Package( sender, reciept, weight)
+{
+}
+
+bool TwoDayPackage::setFlatfee(double m)
+{	if(m > 0)
+	{	TwoDayPackage::flatFee = m;
+		return true;
+	}
+	return false;
+}
+
+double TwoDayPackage::getFlatfee()const
+{	return( flatFee );
+}
+
+double TwoDayPackage::gettotalCostTwoDayPackage()
+{	return( totalCostTwoDayPackage );
+}
+
+int TwoDayPackage::getnumOfTwoDayPackage()
+{	return( numOfTwoDayPackage);
+}
+
+//This method overwrites the base classes’ member 
+//function and calculates the cost of sending the package using this service by adding
+//the flat fee to the weight based cost.
+
+/*
+ * Note:: I tried to decrement the totalcost in case if the function calls twice, 
+ * but it didn't work
+ */
+double TwoDayPackage::calculateCost()
+{	//totalCostTwoDayPackage = (totalCostTwoDayPackage - (Package::calculateCost()+flatFee));
+	totalCostTwoDayPackage = (totalCostTwoDayPackage + (Package::calculateCost()+flatFee));
+	return ( Package::calculateCost()+flatFee );
+}
+
+//
+//This method will ask the user to enter the information
+//
+void TwoDayPackage::input()
+{	Package::input();//calls the input function from the package class
+}
+
+//A function print() that prints the sender and recipient information, any attributes
+//associated with this package as well as the cost associated with sending this package.
+void TwoDayPackage::print()
+{	 Package::output();
+         cout << "Price after adding flatfee: " << TwoDayPackage::calculateCost() << endl;
+}
+/*
+main()
+{
+	TwoDayPackage Two;
+	Two.input();
+	Two.print();	
+}*/
+//Name:Reham Islam
+//This is a driver file for Package Class
+//CISC2000
+//Professor Papadakis
+
+#include <iostream>
+using namespace std;
+
+#include "TwoDayPackage.h"
+#include "OverNightPackage.h"
+
+void twoDay(TwoDayPackage*[]);
+void overNight(OverNightPackage*[]);
+void displayAll(OverNightPackage*[], TwoDayPackage*[]);
+
+static const int MAXPASSENGERS =10;
+
+int main()
+{	int input = 0;
+    const int MIN = 1, MAX = 3;
+	cout << "Please follow the instructions below.\n\n";
+	do{
+		//These are the options that user are going to choose
+		cout << "Please choose one of the options.\n\n";
+		cout << "'1': Two Day Package.\n";
+        cout << "'2': Over Night Package\n";
+		cout << "'3': Get summary of Package delivered.\n";
+		cout << "'4': Quit\n\n";
+	
+        //static const int MAXPASSENGERS =10;
+        TwoDayPackage*two[MAXPASSENGERS];
+        OverNightPackage*over[MAXPASSENGERS];
+	
+		//The outer do while is going to run unless the user chooses to quit		
+		//The inner do while loop will make user the user chooses right number
+		do{
+			cout << "Please enter an option between (1-3): ";
+			cin >> input;
+		}while (input < MIN &&  input > MAX);
+
+		//Switch statement will do the actions depending on the menu
+		switch (input)
+		{
+			case 1:    
+	                	twoDay(two);
+        	        	break;
+			case 2:   
+			   	overNight(over);
+				break;
+			case 3:   
+			    displayAll(over, two);//will show summary statistics
+				break;
+	
+		}
+
+	}while (input!= MAX);
+}
+
+void twoDay(TwoDayPackage* two[])
+{	if(TwoDayPackage::getnumOfTwoDayPackage() >= MAXPASSENGERS)
+		cout << "Exceeded number of Package for TDP " << endl;
+	else
+	{	two[TwoDayPackage::getnumOfTwoDayPackage()-1] = new TwoDayPackage;
+		two[TwoDayPackage::getnumOfTwoDayPackage()-1]->input();
+		cout << "getnumOfTwoDayPackage()" << TwoDayPackage::getnumOfTwoDayPackage() << endl;
+	}
+}
+
+void displayAll(OverNightPackage*over[], TwoDayPackage* two[])
+{
+	 cout << TwoDayPackage::getnumOfTwoDayPackage() << "   " << OverNightPackage::getnumOfOverNightPackage() << endl;
+	for(int i = 0; i < OverNightPackage::getnumOfOverNightPackage(); i++)
+	{	cout << "Customer No: " << i << " for Over Night Package" << endl;
+		over[i]->print();	
+		cout << endl;
+	}
+
+	cout << TwoDayPackage::getnumOfTwoDayPackage() << "   " << OverNightPackage::getnumOfOverNightPackage() << endl;
+
+	for(int i = 0; i < TwoDayPackage::getnumOfTwoDayPackage(); i++)
+        {       cout << "Customer No: " << i << " for Two Day Package" << endl << endl;
+		two[i]->print();
+		cout << endl;
+        }
+
+	//cout << TwoDayPackage::gettotalCostTwoDayPackage()<< "____________" << endl;
+	cout << "Total Amount of Money Earned: " <<  OverNightPackage::gettotalOverNight()+TwoDayPackage::gettotalCostTwoDayPackage() ;
+
+}   
+
+
+void overNight(OverNightPackage*over[] )
+{        if(OverNightPackage::getnumOfOverNightPackage() >= MAXPASSENGERS)
+                 cout << "Exceeded number of Package" << endl;
+         else
+         {      over[OverNightPackage::getnumOfOverNightPackage()-1] = new OverNightPackage;
+                over[OverNightPackage::getnumOfOverNightPackage()-1]->input();
+         }
+
+	 cout << "getnumOfOverNightPackage() "<< OverNightPackage::getnumOfOverNightPackage()<< endl;
+}
+
+
+
+]0;rislam@storm:~/CISC2000/Lab6[rislam@storm Lab6]$ cat[K[K[Kcat Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp TTwoDayPackage.cpp Driver.cpp [Apwd[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp TTwoDayPackage.cpp Driver.cpp [1P [1P [1P [1P [1P [1P [1P [1P [1P [1P [K[1P [1P [1P h [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Tw[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Two[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C TwoD[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch Two[1@D[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C OverNightPackage.h TwoD[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C OverNightPackage.h TwoDa[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C OverNightPackage.h TwoDay[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch OverNightPackage.h TwoDa[1@y[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Customer.h OverNightPackage.h TwoDay[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Customer.h OverNightPackage.h TwoDayP[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Customer.h OverNightPackage.h TwoDayPa[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch Customer.h OverNightPackage.h TwoDayP[1@a[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Name.h Customer.h OverNightPackage.h TwoDayPa[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Name.h Customer.h OverNightPackage.h TwoDayPac[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C Name.h Customer.h OverNightPackage.h TwoDayPack[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch Name.h Customer.h OverNightPackage.h TwoDayPac[1@k[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+/*Name:Reham Islam
+ * Professor Papadakis
+ * 4/30/2017
+ * This is a Package class for Lab 4
+ */
+
+#include<iostream>
+using namespace std;
+
+#ifndef PACKAGE_H
+#define PACKAGE_H
+
+#include "Customer.h"
+
+class Package
+{   
+public:
+	Package();
+	Package(Customer sender,  Customer recipient, double);
+	
+	//Mutators Methods: Alters and checks the content
+	bool setWeight(double );
+	bool setcostPerOunce(double);
+	//Accessor Methods: Returns the contents of Data membets
+	
+	double getWeight()const;
+
+	void output()const;
+        void input();
+	double calculateCost()const;
+
+	
+private:
+	Customer sender;
+	Customer recipient;
+	double weight;
+	int costPerOunce; 
+};
+
+#endif//PACKAGE.H
+#include <iostream>
+using namespace std;
+
+#ifndef NAME_H
+#define NAME_H
+
+class Name
+{
+    friend istream& operator>>(istream&, Name&);
+    friend ostream& operator<<(ostream&, const Name&);
+    public:
+        Name();
+        Name(string, char, string);
+
+        void setLname(const string l);
+        void setFname(const string f);
+        void setMi(const char m);
+	
+	const Name& operator=(const Name&);
+
+        string getLname() const;
+        string getFname()const;
+        char getMi() const;
+
+
+    private:
+        string fName;
+        string lName;
+        char mi;
+
+	void display(ostream&)const;
+        void input(istream&) ;
+
+};
+
+#endif // NAME_H
+/*Name:Reham Islam
+ * Professor Papadakis
+ * 4/30/2017
+ * This is a Customer class for Lab 4
+ */
+
+#include<iostream>
+using namespace std;
+
+#ifndef CUSTOMER_H
+#define CUSTOMER_H
+
+#include "Name.h"
+
+class Customer
+{
+
+friend ostream& operator<<(ostream&, const Customer&);
+friend istream& operator>>(istream&, Customer&);
+   
+public:
+	Customer();
+	Customer(Name);
+	Customer(Name, string, string, string, int);
+	
+	//Mutators Methods: Alters and checks the content
+	bool setAddress(const string);
+	bool setZip(const int);
+	bool setCity(const string);
+	bool setState(const string);
+	
+	//Accessor Methods: Returns the contents of Data membets
+	string getCity()const;	
+	string getState()const;
+	string getAddress()const;
+	int getZip() const;
+	
+	//Other Methods
+	//This method will basically check whether string contains number
+	bool checkNumber(const string) const;
+
+	const Customer& operator=(const Customer&);	
+
+private:
+	Name name;
+	string address;
+	string city;
+	string state;
+	int zipCode;
+
+	void output(ostream&)const;
+        void input(istream&);
+
+};
+
+#endif//CUSTOMER_H
+/*
+ * Name: Reham Islam
+ * 5/6/2017
+ * Professor Papadakis
+ * CISC2000
+ * This is a Header file for the overnight shipping class
+ */
+
+
+#include<iostream>
+using namespace std;
+
+#ifndef OVERNIGHTPACKAGE_H
+#define OVERNIGHTPACKAGE_H
+
+#include "Package.h"
+
+class OverNightPackage: public Package
+{
+public: 
+	OverNightPackage();
+	OverNightPackage(double m);
+	OverNightPackage(Customer, Customer, double);
+
+	bool setAdditionalFee(double);
+	
+	double getAdditionalFee()const;
+	static int getnumOfOverNightPackage();
+	static double gettotalOverNight();
+
+	double calculateCost();
+	void input();
+	void print();
+
+private:
+	double additionalFee;
+	static int numOfOverNightPackage;
+	static double totalOverNight;
+};
+
+#endif //TWODAYPACKAGE_H
+/*
+ * Name: Reham Islam
+ * 5/6/2017
+ * Professor Papadakis
+ * CISC2000
+ * This is a Header file for the Two day shipping class
+ */
+
+
+#include<iostream>
+using namespace std;
+
+#ifndef TWODAYPACKAGE_H
+#define TWODAYPACKAGE_H
+
+#include "Package.h"
+
+class TwoDayPackage: public Package
+{
+public: 
+	TwoDayPackage();
+	TwoDayPackage(double m);
+	TwoDayPackage(Customer, Customer, double);
+
+	bool setFlatfee(double);
+	
+	double getFlatfee()const;
+	static int getnumOfTwoDayPackage();
+	static double gettotalCostTwoDayPackage();
+
+	double calculateCost();
+	void input();
+	void print();
+
+private:
+	double flatFee;
+	double totalCost;
+	static int numOfTwoDayPackage;
+	static double totalCostTwoDayPackage;
+};
+
+#endif //TWODAYPACKAGE_H
+]0;rislam@storm:~/CISC2000/Lab6[rislam@storm Lab6]$ cat Package.h Name.h Customer.h OverNightPackage.h TwoDayPacckage.h [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccpp Name.cpp Customer.cpp OverNightPackage.cpp T[21@woDayPackage.cpp Driver.cpp[C[Apwd[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Clogoutscript./a.outg++ Package.cpp Name.cpp Customer.cpp OverNightPackage.cpp TTwoDayPackage.cpp Driver.cpp 
+]0;rislam@storm:~/CISC2000/Lab6[rislam@storm Lab6]$ ./a.out
+Please follow the instructions below.
+
+Please choose one of the options.
+
+'1': Two Day Package.
+'2': Over Night Package
+'3': Get summary of Package delivered.
+'4': Quit
+
+Please enter an option between (1-3): 1
+Enter information about Sender: 
+
+Please Enter First Name: Reham
+Please Enter last Name: Islam
+Please Enter Middle initial: J
+Enter Address: Enter Address: 3134 aveny ue of americas
+Enter city: bronx
+Enter State: ny
+Enter Zip Code: 12345
+
+
+Enter information about Receipient: 
+
+Please Enter First Name: cattie
+Please Enter last Name: pere a
+Please Enter Middle initial: M
+Enter Address: Enter Address: 234 fulton
+Enter city: bronx
+Enter State: ny
+Enter Zip Code: 23456
+
+ Weight of Package: 20
+getnumOfTwoDayPackage()1
+Please choose one of the options.
+
+'1': Two Day Package.
+'2': Over Night Package
+'3': Get summary of Package delivered.
+'4': Quit
+
+Please enter an option between (1-3): 2
+Enter information about Sender: 
+
+Please Enter First Name: alsida
+Please Enter last Name: perez
+Please Enter Middle initial: m
+Enter Address: Enter Address: 234 jj
+Enter city: bronx
+Enter State: ny
+Enter Zip Code: 78906
+
+
+Enter information about Receipient: 
+
+Please Enter First Name: didi
+Please Enter last Name: ho
+Please Enter Middle initial: k
+Enter Address: Enter Address: 234 bb
+Enter city: hot   new yorl
+Enter State: Enter State: ny
+Enter Zip Code: 34567
+
+ Weight of Package: 23
+getnumOfOverNightPackage() 1
+Please choose one of the options.
+
+'1': Two Day Package.
+'2': Over Night Package
+'3': Get summary of Package delivered.
+'4': Quit
+
+Please enter an option between (1-3): 3
+1   1
+Customer No: 0 for Over Night Package
+From: 
+alsida m perez
+234 jj
+bronx, ny -78906
+
+To: 
+didi k ho
+234 bb
+new, ny -34567
+
+Total Cost230
+Price: 2300
+
+1   1
+Customer No: 0 for Two Day Package
+
+From: 
+Reham J Islam
+3134 avenue of americas
+bronx, ny -12345
+
+To: 
+cattie M pera
+234 fulton
+bronx, ny -23456
+
+Total Cost200
+Price after adding flatfee: 210
+
+Total Amount of Money Earned: 2510]0;rislam@storm:~/CISC2000/Lab6[rislam@storm Lab6]$ exit
+exit
+
+Script done on Wed 10 May 2017 09:25:20 AM EDT
